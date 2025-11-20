@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ログイン結果</title>
 </head>
 <body>
+<h1>ログイン結果</h1>
+<p>${msg}</p> <%--　サーブレットから渡されるメッセージを表示 --%>
 
 </body>
 </html>
