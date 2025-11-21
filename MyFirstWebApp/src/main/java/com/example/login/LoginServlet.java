@@ -9,32 +9,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.LoginLogic;
+
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-    	// 1. リクエストパラメータの取得
-    	request.setCharacterEncoding("UTF-8"); // 文字化け対策
-    	String userId = request.getParameter("userId");
-    	String pass  = request.getParameter("pass");
+        // リクエストパラメータの取得
+        request.setCharacterEncoding("UTF-8");
+        String userId = request.getParameter("userId");
+        String pass = request.getParameter("pass");
 
-    	// 2. ログイン処理（今回は簡易的な判定）
-    	String msg = "";
-    	if ("minato".equals(userId) && "1234".equals(pass)) {
-    	    msg = "ログイン成功！";
-    	} else {
-    	    msg = "ログイン失敗…";
-    	}
+        // Userインスタンスの生成
+        User user = new User(userId, pass);
 
-    	// 3. リクエストスコープにメッセージを保存
-    	request.setAttribute("msg", msg);
+        // ログイン処理の実行
+        LoginLogic loginLogic = new LoginLogic();
+        boolean isLogin = loginLogic.execute(user);
 
-    	// 4. 結果画面にフォワード
-    	String forwardPath = "/WEB-INF/loginResult.jsp";
-    	RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
-    	dispatcher.forward(request, response);
-
+        if (isLogin) {
+            request.setAttribute("msg", "ログイン成功！");
+            RequestDispatcher dispatcher =
+                    request.getRequestDispatcher("/WEB-INF/loginResult.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            request.setAttribute("errorMsg", "IDまたはパスワードが間違っています。");
+            RequestDispatcher dispatcher =
+                    request.getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }
