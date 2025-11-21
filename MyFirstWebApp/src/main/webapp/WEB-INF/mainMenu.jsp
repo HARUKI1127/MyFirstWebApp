@@ -1,106 +1,122 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>メインメニュー</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: "Segoe UI", sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<title>メインメニュー</title>
 
-        .container {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 16px;
-            width: 420px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            text-align: center;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #2196F3, #21CBF3);
+}
 
-        h1 {
-            margin-top: 0;
-            color: #333;
-        }
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
 
-        .welcome {
-            font-size: 18px;
-            margin-bottom: 25px;
-            color: #555;
-        }
+h1 {
+    text-align: center;
+    color: #2196F3;
+}
 
-        ul.menu {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 30px 0;
-        }
+.user-box {
+    background: #f5faff;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
 
-        ul.menu li {
-            margin: 12px 0;
-        }
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
 
-        ul.menu a {
-            display: block;
-            padding: 12px;
-            background: #4facfe;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s ease;
-            font-weight: bold;
-        }
+.menu-card {
+    padding: 15px;
+    background: #2196F3;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.3s;
+}
 
-        ul.menu a:hover {
-            background: #3589e6;
-            transform: translateY(-2px);
-        }
+.menu-card:hover {
+    transform: scale(1.05);
+    background: #1976D2;
+}
 
-        .logout {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 18px;
-            background: #ff5f5f;
-            color: white;
-            border-radius: 20px;
-            text-decoration: none;
-            transition: 0.3s ease;
-        }
+.logout {
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+    padding: 12px;
+    background: #f44336;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
 
-        .logout:hover {
-            background: #e04444;
-        }
+.time {
+    text-align: right;
+    font-size: 0.9em;
+    color: #666;
+}
 
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #888;
-        }
-    </style>
+.dark {
+    background: #121212;
+    color: white;
+}
+</style>
+
+<script>
+function showTime() {
+    const now = new Date();
+    document.getElementById("time").textContent =
+        now.toLocaleString();
+}
+setInterval(showTime, 1000);
+
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
+</script>
 </head>
-<body>
+
+<body onload="showTime()">
 
 <div class="container">
     <h1>メインメニュー</h1>
 
-    <p class="welcome">ようこそ、<strong>${loginUser.userId}</strong> さん！</p>
-
-    <ul class="menu">
-        <li><a href="#">📁 メニュー1（ユーザー情報）</a></li>
-        <li><a href="#">⚙ メニュー2（設定）</a></li>
-        <li><a href="#">📊 メニュー3（履歴）</a></li>
-    </ul>
-
-    <a class="logout" href="${pageContext.request.contextPath}/Logout">ログアウト</a>
-
-    <div class="footer">
-        MyFirstWebApp © 2025
+    <div class="time">
+        現在時刻：<span id="time"></span>
     </div>
+
+    <div class="user-box">
+        <p>ようこそ、<strong>${loginUser.userId}</strong> さん！</p>
+    </div>
+
+    <button onclick="toggleDark()">🌙 ダークモード切替</button>
+
+    <div class="menu-grid">
+        <a href="#" class="menu-card">📄 ユーザー情報</a>
+        <a href="#" class="menu-card">🔒 パスワード変更</a>
+        <a href="#" class="menu-card">⚙ 設定</a>
+        <a href="#" class="menu-card">📊 利用履歴</a>
+    </div>
+
+    <a class="logout" href="${pageContext.request.contextPath}/Logout">
+        ログアウト
+    </a>
 </div>
 
 </body>
