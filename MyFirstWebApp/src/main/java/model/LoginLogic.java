@@ -3,12 +3,20 @@ package model;
 public class LoginLogic {
 
     public boolean execute(User user) {
-        // 本来はここでデータベースと照合する
-        // 今回は簡易的に、IDとパスワードが一致するかどうかだけをチェック
-        if (user.getPass().equals("1234")) {
-            return true; // ログイン成功
+
+        // nullチェック（安全対策）
+        if (user == null) {
+            return false;
         }
-        return false; // ログイン失敗
+
+        String userId = user.getUserId();
+        String pass = user.getPass();
+
+        // ★ null安全な比較（文字列リテラル側からequals）
+        if ("minato".equals(userId) && "1234".equals(pass)) {
+            return true;
+        }
+
+        return false;
     }
 }
-

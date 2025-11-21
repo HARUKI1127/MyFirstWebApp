@@ -1,3 +1,4 @@
+// File: LoginServlet.java
 package com.example.login;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.LoginLogic;
+import model.User;
 
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
@@ -33,23 +35,18 @@ public class LoginServlet extends HttpServlet {
 
         // ログイン成功時の処理
         if (isLogin) {
-
-            // ① ユーザー情報をセッションスコープに保存
             HttpSession session = request.getSession();
             session.setAttribute("loginUser", user);
 
-            // ② ログイン成功画面へフォワード
             RequestDispatcher dispatcher =
-                    request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
+                    request.getRequestDispatcher("/WEB-INF/mainMenu.jsp");
             dispatcher.forward(request, response);
 
         } else {
-            // ログイン失敗時の処理
-
             request.setAttribute("errorMsg", "IDまたはパスワードが間違っています。");
 
             RequestDispatcher dispatcher =
-                    request.getRequestDispatcher("/login.jsp");
+                    request.getRequestDispatcher("/loginForm.jsp");
             dispatcher.forward(request, response);
         }
     }

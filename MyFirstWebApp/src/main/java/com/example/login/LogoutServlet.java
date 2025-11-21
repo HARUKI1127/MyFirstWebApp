@@ -25,7 +25,7 @@ public class LogoutServlet extends HttpServlet {
 
         // 3. ログアウト完了画面へフォワード
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/logout.jsp");
+                request.getRequestDispatcher("/WEB-INF/logoutForm.jsp");
         dispatcher.forward(request, response);
     }
 }
