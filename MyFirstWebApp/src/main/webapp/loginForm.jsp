@@ -5,92 +5,102 @@
 <meta charset="UTF-8">
 <title>ログイン</title>
 <style>
-    body {
-        margin: 0;
-        font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(135deg, #4e73df, #1cc88a);
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    .login-container {
-        background: #fff;
-        padding: 40px;
-        border-radius: 16px;
-        width: 350px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        animation: fadeIn 0.8s ease;
-    }
+.login-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    width: 350px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.8s ease;
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    h1 {
-        text-align: center;
-        margin-bottom: 25px;
-        color: #333;
-    }
+h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
 
-    .form-group {
-        margin-bottom: 20px;
-    }
+.error-message {
+    background: #ffe6e6;
+    color: #d60000;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #ffb3b3;
+}
 
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: #555;
-    }
+.form-group {
+    margin-bottom: 20px;
+}
 
-    input[type="text"],
-    input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 14px;
-        transition: border 0.3s, box-shadow 0.3s;
-    }
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
 
-    input:focus {
-        outline: none;
-        border: 1px solid #4e73df;
-        box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
-    }
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
 
-    .btn-login {
-        width: 100%;
-        padding: 12px;
-        background: linear-gradient(135deg, #4e73df, #224abe);
-        color: #fff;
-        border: none;
-        border-radius: 25px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #4e73df, #224abe);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-    .btn-login:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .footer-text {
-        text-align: center;
-        margin-top: 15px;
-        font-size: 13px;
-        color: #888;
-    }
+.footer-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #888;
+}
 </style>
 </head>
 <body>
 
 <div class="login-container">
     <h1>ログイン</h1>
+
+    <!-- 🔴 エラーメッセージ表示 -->
+    <%
+        String errorMsg = (String) request.getAttribute("errorMsg");
+        if (errorMsg != null) {
+    %>
+        <div class="error-message">
+            <%= errorMsg %>
+        </div>
+    <%
+        }
+    %>
 
     <form action="/MyFirstWebApp/Login" method="post">
         <div class="form-group">

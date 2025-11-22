@@ -21,19 +21,16 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // リクエストパラメータの取得
         request.setCharacterEncoding("UTF-8");
+
         String userId = request.getParameter("userId");
         String pass = request.getParameter("pass");
 
-        // Userインスタンスの生成
         User user = new User(userId, pass);
 
-        // ログイン処理の実行
         LoginLogic loginLogic = new LoginLogic();
         boolean isLogin = loginLogic.execute(user);
 
-        // ログイン成功時の処理
         if (isLogin) {
             HttpSession session = request.getSession();
             session.setAttribute("loginUser", user);
@@ -43,6 +40,7 @@ public class LoginServlet extends HttpServlet {
             dispatcher.forward(request, response);
 
         } else {
+            // 🔴 ここでエラーメッセージをセット
             request.setAttribute("errorMsg", "IDまたはパスワードが間違っています。");
 
             RequestDispatcher dispatcher =
